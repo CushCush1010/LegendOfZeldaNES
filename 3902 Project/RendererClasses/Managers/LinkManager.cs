@@ -52,6 +52,30 @@ namespace _3902_Project
             _currentLink.SetPosition(_position);
         }
 
+        public ILinkStateMachine.ATTACK getAttack()
+        {
+            // 这里需要根据具体逻辑返回当前的攻击状态
+            return ILinkStateMachine.ATTACK.NONE; // 示例返回值
+        }
+
+        public ILinkStateMachine.MOVEMENT getState()
+        {
+            // 这里需要根据具体逻辑返回当前的移动状态
+            return ILinkStateMachine.MOVEMENT.STANDING; // 示例返回值
+        }
+
+
+        public void flipDamaged()
+        {
+            // Toggles Link's damage state logic
+        }
+
+        public void AddItem(ItemManager.ItemNames itemName, int amount)
+        {
+            // Logic for adding items to Link's backpack
+        }
+
+
         public Vector2 GetLinkPosition() { return _position; }
 
 
