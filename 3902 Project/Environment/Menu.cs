@@ -72,7 +72,7 @@ namespace _3902_Project
                     heartSprite = _itemManager.AddItem(ItemManager.ItemNames.HP0, new Vector2(700 + i * 40, 60), heartScale);
                 }
 
-                heartSprite.Draw(_batch);
+                heartSprite.Draw(_batch); 
             }
         }
     }

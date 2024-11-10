@@ -3,16 +3,17 @@ namespace _3902_Project
 {
     public class CommandMoveRight : ICommand
     {
-        private LinkPlayer _player;
+        private LinkManager _link;
 
         public CommandMoveRight(Game1 game)
         {
-            _player = game.Player;  // Access the Player object from the Game1 class
+            _link = game._Link;
         }
 
         public void Execute()
         {
-            _player.MoveRight();  // Call the MoveRight method in the Player class
+            _link.SetLinkDirection(Renderer.DIRECTION.RIGHT);
+            _link.SetLinkState(LinkManager.LinkActions.Moving);
         }
     }
 }
