@@ -3,16 +3,16 @@ namespace _3902_Project
 {
     public class CommandLinkDamaged : ICommand
     {
-        private LinkPlayer _player;
+        private LinkManager _link;
 
         public CommandLinkDamaged(Game1 game)
         {
-            _player = game.Player;
+            _link = game._Link;
         }
 
         public void Execute()
         {
-            _player.flipDamaged();  // Call the Throw method in the Player class
+            _link.SetLinkState(LinkManager.LinkActions.Throwing);
         }
     }
 }

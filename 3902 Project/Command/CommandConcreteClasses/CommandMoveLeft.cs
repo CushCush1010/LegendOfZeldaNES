@@ -3,16 +3,17 @@ namespace _3902_Project
 {
     public class CommandMoveLeft : ICommand
     {
-        private LinkPlayer _player;
+        private LinkManager _link;
 
         public CommandMoveLeft(Game1 game)
         {
-            _player = game.Player;
+            _link = game._Link;
         }
 
         public void Execute()
         {
-            _player.MoveLeft();
+            _link.SetLinkDirection(Renderer.DIRECTION.LEFT);
+            _link.SetLinkState(LinkManager.LinkActions.Moving);
         }
     }
 }

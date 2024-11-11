@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -53,6 +52,7 @@ namespace _3902_Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            
 
             CharacterStateManager = new CharacterStateManager(6, this); //assume maximum HP = 6
 
@@ -81,7 +81,7 @@ namespace _3902_Project
 
             EnvironmentFactory = new EnvironmentFactory(BlockManager, ItemManager, Player, EnemyManager, ProjectileManager, CharacterStateManager);
 
-            EnvironmentFactory.loadLevel();
+            _EnvironmentFactory.loadLevel();
 
         }
 
@@ -107,6 +107,11 @@ namespace _3902_Project
         {
             GraphicsDevice.Clear(Color.Black);
 
+            _BlockManager.Draw();
+            _ItemManager.Draw();
+            _ProjectileManager.Draw();
+            _Link.Draw();
+            _EnemyManager.Draw();
             BlockManager.Draw();
             ItemManager.Draw();
             ProjectileManager.Draw();

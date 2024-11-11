@@ -11,7 +11,7 @@ namespace _3902_Project
         private ProjectileCollisionHandler ProjectileCollisionHandler;
         private CharacterStateManager characterState;
 
-        public CollisionHandlerManager(LinkPlayer link, EnemyManager enemyManager, ItemManager itemManager, ProjectileManager projectileManager, CharacterStateManager characterStateManager)
+        public CollisionHandlerManager(LinkManager link, EnemyManager enemyManager, ItemManager itemManager, ProjectileManager projectileManager, CharacterStateManager characterStateManager)
         {
             EnemyCollisionHandler = new EnemyCollisionHandler(enemyManager, characterStateManager);
             LinkCollisionHandler = new LinkCollisionHandler(link, enemyManager, itemManager, characterStateManager);

@@ -222,7 +222,7 @@ namespace _3902_Project
             if (_level > 1) { _level--; }
         }
 
-        public void Update(LinkPlayer player)
+        public void Update(LinkManager player)
         {
             if (_prevLevel != -1 && _prevLevel != _level)
             {

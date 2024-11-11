@@ -3,16 +3,17 @@ namespace _3902_Project
 {
     public class CommandMoveUp : ICommand
     {
-        private LinkPlayer _player;
+        private LinkManager _link;
 
         public CommandMoveUp(Game1 game)
         {
-            _player = game.Player;  // Access the Player object from the game
+            _link = game._Link;
         }
 
         public void Execute()
         {
-            _player.MoveUp();  // Call the MoveUp method in the Player class
+            _link.SetLinkDirection(Renderer.DIRECTION.UP);
+            _link.SetLinkState(LinkManager.LinkActions.Moving);
         }
     }
 }

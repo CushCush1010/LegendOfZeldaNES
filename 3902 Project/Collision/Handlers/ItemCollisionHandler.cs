@@ -3,12 +3,12 @@ using System.Diagnostics;
 
 public class ItemCollisionHandler : ICollisionHandler
 {
-    private LinkPlayer _player;
+    private LinkManager _link;
     private ItemManager _itemManager;
 
-    public ItemCollisionHandler(LinkPlayer player, ItemManager itemManager)
+    public ItemCollisionHandler(LinkManager link, ItemManager itemManager)
     {
-        _player = player;
+        _link = link;
         _itemManager = itemManager;
     }
 
