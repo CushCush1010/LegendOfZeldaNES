@@ -12,7 +12,7 @@ namespace _3902_Project
         private SpriteBatch _spriteBatch;
 
         // Game objects and managers
-        internal LinkPlayer Player { get; private set; }  // Player object
+        internal LinkPlayer Player { get; private set; }  // Player object.
         internal BlockManager BlockManager { get; private set; }  // Block manager
         internal ItemManager ItemManager { get; private set; }  // Item manager
         internal EnemyManager EnemyManager { get; private set; } //Enemy manager
