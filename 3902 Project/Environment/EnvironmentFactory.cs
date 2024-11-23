@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -126,8 +126,26 @@ namespace _3902_Project
             _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_UP, new Vector2((int)_startingPosition.X + 448, (int)_startingPosition.Y + 576), 4F);
             _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_RIGHT, new Vector2((int)_startingPosition.X, (int)_startingPosition.Y + 288), 4F);
             _blockManager.AddBlock(BlockManager.BlockNames.DiamondHoleLockedDoor_LEFT, new Vector2((int)_startingPosition.X + 1024 - 128, (int)_startingPosition.Y + 288), 4F);
-            Rectangle testInvisible = new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 50);
-            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, testInvisible, 4F);
+
+            //adjust boundary
+            Rectangle topLeftInvisible = new((int)(_startingPosition.X + 128), (int)(_startingPosition.Y + 78), (int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128), 50);
+            Rectangle topRightInvisible = new Rectangle((int)(_startingPosition.X + 576), (int)(_startingPosition.Y + 78),(int)(_startingPosition.X + 1024 - 128) - (int)(_startingPosition.X + 576), 50);
+            Rectangle rightTopInvisible = new Rectangle((int)(_startingPosition.X + 896),(int)(_startingPosition.Y + 78),50,(int)(_startingPosition.Y + 288) - (int)(_startingPosition.Y + 78));
+            Rectangle rightBottomInvisible = new Rectangle((int)(_startingPosition.X + 896), (int)(_startingPosition.Y + 416),50, (int)(_startingPosition.Y + 768) - (int)(_startingPosition.Y + 576));
+            Rectangle bottomRightInvisible = new Rectangle((int)(_startingPosition.X + 576),(int)(_startingPosition.Y + 576),(int)(_startingPosition.X + 1024 - 128) - (int)(_startingPosition.X + 576),50);
+            Rectangle bottomLeftInvisible = new Rectangle((int)(_startingPosition.X + 128),(int)(_startingPosition.Y + 576),(int)(_startingPosition.X + 448) - (int)(_startingPosition.X + 128),50);
+            Rectangle leftBottomInvisible = new Rectangle((int)(_startingPosition.X + 78),(int)(_startingPosition.Y + 416), 50, (int)(_startingPosition.Y + 768) - (int)(_startingPosition.Y + 576));
+            Rectangle leftTopInvisible = new Rectangle((int)(_startingPosition.X + 78), (int)(_startingPosition.Y + 78),50,(int)(_startingPosition.Y + 288) - (int)(_startingPosition.Y + 78));
+
+            //add block
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, topLeftInvisible, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, topRightInvisible, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, rightTopInvisible, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, rightBottomInvisible, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, bottomRightInvisible, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, bottomLeftInvisible, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, leftBottomInvisible, 4F);
+            _blockManager.AddBlock(BlockManager.BlockNames.Invisible, leftTopInvisible, 4F);
 
             for (int i = 0; i < _environment.Count; i++)
             {

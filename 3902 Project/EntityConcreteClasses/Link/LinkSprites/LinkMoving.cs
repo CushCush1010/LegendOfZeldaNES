@@ -63,7 +63,11 @@ namespace _3902_Project
             //Console.WriteLine("updatePosition: " +  updatePosition);
             Vector2 currentPosition = _rendererList.GetVectorPosition() + updatePosition;
             _rendererList.SetPositions(currentPosition);
-            _rendererList.CreateUpdateFrames(); 
+            _rendererList.CreateUpdateFrames();
+
+            //debug
+            Console.WriteLine($"Link Position: X = {currentPosition.X}, Y = {currentPosition.Y}");
+
         }
 
 

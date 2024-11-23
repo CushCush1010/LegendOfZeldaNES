@@ -52,6 +52,10 @@ namespace _3902_Project
             SetCollision(_collisionBox);
             // IMPORTANT: look at this methods comment for health transfering
             SetHealthDamage(_collisionBox, 10);
+
+            // Set player's initial position to the center of the map
+            Vector2 centerPosition = new Vector2(260, 520); // Adjust position
+            SetLinkPosition(centerPosition);
         }
 
 
@@ -86,6 +90,7 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
+
             _currentLink.Update();
             _position = _currentLink.GetVectorPosition();
             _collisionBox.Bounds = _currentLink.GetRectanglePosition();
