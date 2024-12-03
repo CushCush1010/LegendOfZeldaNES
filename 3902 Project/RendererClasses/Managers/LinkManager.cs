@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
+using System.Xml.Linq;
 
 namespace _3902_Project
 {
@@ -29,12 +31,19 @@ namespace _3902_Project
         private float _printScale = 4f;
         private LinkInventory _inventory;
 
+        int cnt = 0;
+
+        private Game1 _game;
+
 
         // constructor
         public LinkManager() { }
 
         // Load all link textures
-        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, ProjectileManager manager) {
+        public void LoadAll(SpriteBatch spriteBatch, ContentManager content, ProjectileManager manager, Game1 game)
+        {
+            _game = game;
+
             // initialize inventory
             _inventory = new();
             _spriteBatch = spriteBatch;
@@ -78,7 +87,8 @@ namespace _3902_Project
         public Vector2 GetLinkPosition() { return _currentLink.GetVectorPosition(); }
 
 
-        public void ReplaceLinkSprite(LinkSprite name) {
+        public void ReplaceLinkSprite(LinkSprite name)
+        {
             _currentLinkSprite = name;
             _currentLink = _factory.CreateLink(name, _inventory.LinkShield, _direction, _printScale, _manager);
             _currentLink.SetPosition(_position);
@@ -90,10 +100,50 @@ namespace _3902_Project
         /// </summary>
         public void Update()
         {
-
+            
             _currentLink.Update();
             _position = _currentLink.GetVectorPosition();
             _collisionBox.Bounds = _currentLink.GetRectanglePosition();
+
+            KeyboardState keyboardState = Keyboard.GetState();
+            var pressedKeys = keyboardState.GetPressedKeys();
+            if (cnt > 0)
+            {
+                cnt--;
+            }
+            if (cnt <= 0)
+            {
+                foreach (var key in pressedKeys)
+                {
+                    if (key == Keys.A && _collisionBox.Bounds.X <= 127 + 10 && _collisionBox.Bounds.Y >= 514 - 10 && _collisionBox.Bounds.Y <= 552 + 10)
+                    {
+                        _game.EnvironmentFactory.incrementLevel();
+                        _game.Menu.incrementLevel();
+                        cnt = 50;
+                    }
+
+                    if (key == Keys.W && _collisionBox.Bounds.Y <= 327 + 10 && _collisionBox.Bounds.X <= 506 + 10 && _collisionBox.Bounds.X >= 475 - 10)
+                    {
+                        _game.EnvironmentFactory.incrementLevel();
+                        _game.Menu.incrementLevel();
+                        cnt = 50;
+                    }
+                    else if (key == Keys.S && _collisionBox.Bounds.Y + _collisionBox.Bounds.Height >= 775 - 10 && _collisionBox.Bounds.X <= 506 - 10 && _collisionBox.Bounds.X >= 475 + 10)
+                    {
+                        _game.EnvironmentFactory.incrementLevel();
+                        _game.Menu.incrementLevel();
+                        cnt = 50;
+                    }
+                    else if (key == Keys.D && _collisionBox.Bounds.X + _collisionBox.Bounds.Width >= 892 - 10 && _collisionBox.Bounds.Y >= 514 - 10 && _collisionBox.Bounds.Y <= 552 + 10)
+                    {
+                        _game.EnvironmentFactory.incrementLevel();
+                        _game.Menu.incrementLevel();
+                        cnt = 50;
+                    }
+                }
+            }
+           
+
             if (IsLinkDamaged)
             {
                 _linkDamagedStateCounter++;
@@ -112,7 +162,8 @@ namespace _3902_Project
             else
             {
                 // currently the sword attack doesn't tint, but I'm unsure if that should be the case
-                switch (_currentLinkSprite) {
+                switch (_currentLinkSprite)
+                {
                     case LinkSprite.Moving:
                         if (_linkColorFlip)
                             (_currentLink as LinkMoving).Draw(_spriteBatch, Color.Red);

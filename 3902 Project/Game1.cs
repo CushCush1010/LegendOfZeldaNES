@@ -69,7 +69,7 @@ namespace _3902_Project
             ItemManager.LoadAll(_spriteBatch, Content);
             ProjectileManager.LoadAll(_spriteBatch, Content);
             EnemyManager.LoadAll(_spriteBatch, Content, ProjectileManager);
-            LinkManager.LoadAll(_spriteBatch, Content, ProjectileManager);
+            LinkManager.LoadAll(_spriteBatch, Content, ProjectileManager,this);
             BackgroundMusic.LoadAll(Content);
             BackgroundMusic.LoadSongs();
             CharacterStateManager.LoadAll(this, 6);
@@ -77,7 +77,7 @@ namespace _3902_Project
             // for the showing of collisions
             _outline = Content.Load<Texture2D>("Dungeon_Block_and_Room_Spritesheet_transparent");
 
-            EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager);
+            EnvironmentFactory.LoadAll(LinkManager, EnemyManager, BlockManager, ItemManager, ProjectileManager, _spriteBatch, GraphicsDevice);
             EnvironmentFactory.loadLevel();
 
             Menu.addWeaponToA(ItemManager.ItemNames.LongSword);
@@ -112,6 +112,7 @@ namespace _3902_Project
             EnemyManager.Draw();
             LinkManager.Draw();
             Menu.Draw();
+            EnvironmentFactory.Draw();
 
             // draw the collisions if the enters "C"
             if (DoDrawCollisions)

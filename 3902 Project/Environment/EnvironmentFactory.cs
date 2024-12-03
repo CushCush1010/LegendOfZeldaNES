@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,6 +24,7 @@ namespace _3902_Project
         private Dictionary<string, BlockManager.BlockNames> _csvTranslationsBlock;
         private Dictionary<string, EnemyManager.EnemyNames> _csvTranslationsEnemy;
         private Dictionary<string, ItemManager.ItemNames> _csvTranslationsItem;
+        private SpriteBatch _spriteBatch;
 
         private List<List<string>> _environment;
         private List<List<string>> _enemies;
@@ -30,21 +33,40 @@ namespace _3902_Project
         private Vector2 _startingPosition = new (0, 200);
 
         public List<List<ICollisionBox>> _collisionBoxes;
-        
+
+        private float _fadeAlpha = 1f; // from 1 (full black) to 0 (full transparency)
+        private bool _isFading = false;
+
+        private GraphicsDevice _graphicsDevice;
+        private Texture2D _whiteTexture;
+
 
         public EnvironmentFactory() { }
 
-        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile)
+       
+
+        public void LoadContent()
+        {
+
+            _whiteTexture = new Texture2D(_graphicsDevice, 1, 1);
+            _whiteTexture.SetData(new Color[] { Color.White });
+        }
+
+
+        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile,SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             _linkManager = link;
             _enemyManager = enemy;
             _blockManager = block;
             _itemManager = item;
             _projectileManager = projectile;
+            _spriteBatch = spriteBatch;
+            _graphicsDevice = graphicsDevice;
 
             // Initialize Collision
             _collisionBoxes = new List<List<ICollisionBox>>();
             _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile);
+            this.LoadContent();
 
             _level = 1;
 
@@ -219,6 +241,10 @@ namespace _3902_Project
             loadEnemies();
             loadItems();
             loadCollisions();
+
+            // Activate the gradient effect
+            _fadeAlpha = 1f;  // black
+            _isFading = true;
         }
 
         public void incrementLevel()
@@ -245,11 +271,45 @@ namespace _3902_Project
 
             _prevLevel = _level;
 
+            // Update the transparency and position if a gradient is being applied
+            if (_isFading)
+            {
+                _fadeAlpha -= 0.03f;  // Reduced transparency value per frame
+                if (_fadeAlpha <= 0)
+                {
+                    _fadeAlpha = 0;
+                    _isFading = false;  // finishing gradient
+                }
+            }
+
             // Detect Collisions
             List<CollisionData> detectedCollisions = CollisionDetector.DetectCollisions(_collisionBoxes);
 
             // Handle Collisions
             _collisionHandlerManager.HandleCollisions(detectedCollisions);
         }
+
+
+
+        public void Draw()
+        {
+            _spriteBatch.Begin();
+
+    
+            if (_isFading)
+            {
+                // Black rectangle on the left (moving from left to right)
+                float leftWidth = 1024 * 0.5f * _fadeAlpha;
+                _spriteBatch.Draw(_whiteTexture, new Rectangle(0, 0, (int)leftWidth, 900), Color.Black);
+
+                // Black rectangle on the right (moving from right to left)
+                float rightWidth = 1024 * 0.5f * _fadeAlpha;
+                _spriteBatch.Draw(_whiteTexture, new Rectangle(1024 - (int)rightWidth, 0, (int)rightWidth, 900), Color.Black);
+            }
+
+            _spriteBatch.End();
+        }
+
+
     }
 }

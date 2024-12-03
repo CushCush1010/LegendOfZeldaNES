@@ -65,8 +65,6 @@ namespace _3902_Project
             _rendererList.SetPositions(currentPosition);
             _rendererList.CreateUpdateFrames();
 
-            //debug
-            Console.WriteLine($"Link Position: X = {currentPosition.X}, Y = {currentPosition.Y}");
 
         }
 
