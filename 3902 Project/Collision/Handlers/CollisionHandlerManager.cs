@@ -10,6 +10,7 @@ namespace _3902_Project
         private ItemCollisionHandler _itemCollisionHandler = new();
         private ProjectileCollisionHandler _projectileCollisionHandler = new();
 
+
         /// <summary>
         /// Constructor that creates the class, nothing more
         /// </summary>
@@ -23,13 +24,16 @@ namespace _3902_Project
         /// <param name="block">BlockManager</param>
         /// <param name="item">ItemManager</param>
         /// <param name="projectile">ProjectileManager</param>
-        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile)
+        public void LoadAll(LinkManager link, EnemyManager enemy, BlockManager block, ItemManager item, ProjectileManager projectile,EnvironmentFactory _environmentFactory
+            )
         {
             _linkCollisionHandler.LoadAll(link);
             _enemyCollisionHandler.LoadAll(enemy);
-            _blockCollisionHandler.LoadAll(block);
+            _blockCollisionHandler.LoadAll(block, _environmentFactory);
             _itemCollisionHandler.LoadAll(item);
             _projectileCollisionHandler.LoadAll(projectile);
+
+
         }
 
         /// <summary>

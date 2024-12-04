@@ -7,7 +7,7 @@ using System.IO;
 
 namespace _3902_Project
 {
-    class EnvironmentFactory
+    public class EnvironmentFactory
     {
         private BlockManager _blockManager;
         private ItemManager _itemManager;
@@ -65,7 +65,7 @@ namespace _3902_Project
 
             // Initialize Collision
             _collisionBoxes = new List<List<ICollisionBox>>();
-            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile);
+            _collisionHandlerManager.LoadAll(link, enemy, block, item, projectile, this);
             this.LoadContent();
 
             _level = 1;

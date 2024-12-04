@@ -3,6 +3,7 @@
     public class BlockCollisionHandler : ICollisionHandler
     {
         private BlockManager _block;
+        private EnvironmentFactory _environmentFactory;
 
         public BlockCollisionHandler() { }
 
@@ -10,7 +11,10 @@
         /// Load everything that this handler needs
         /// </summary>
         /// <param name="block">manager for blocks</param>
-        public void LoadAll(BlockManager block) { _block = block; }
+        public void LoadAll(BlockManager block, EnvironmentFactory environFactory) { 
+            _block = block; 
+            _environmentFactory = environFactory;
+        }
 
         public void HandleCollision(ICollisionBox objectA, ICollisionBox objectB, CollisionData.CollisionType side)
         {
@@ -30,6 +34,17 @@
             if (_block.IsDestroyable(objectA))
             {
                 objectA.Health -= objectB.Damage;
+            }
+
+            switch (objectA.Sprite)
+            {
+                case FBlock_DiamondHoleLockedDoor:
+                    _environmentFactory.incrementLevel();
+                    break;
+
+
+                default: break;
+
             }
         }
     }
